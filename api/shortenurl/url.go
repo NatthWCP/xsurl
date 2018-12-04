@@ -10,7 +10,7 @@ import (
 // ID is an indentifier of each URL comming from user
 type ID string
 
-// URL is an central object use on shortening service
+// URL is used as ubiquetus language for URL shortening service
 type URL struct {
 	ID         ID
 	OriginURL  string

@@ -18,10 +18,17 @@ type service struct {
 	urls url.URLRepository
 }
 
+// business rule for shortening the URL will be implement here
 func shortenURL(originURL string) string {
-	// business rule for shortening the URL will be implement here
 	hashedbytes := md5.Sum([]byte(originURL))
 	return base64.StdEncoding.EncodeToString(hashedbytes[:])
+}
+
+func addPrefix(sURL string) string {
+	// TODO: get the redirect service url from DB
+	var serviceURL = "https://xsurl.com/"
+
+	return serviceURL + sURL
 }
 
 func (s *service) ShortenURL(originURL string) (string, error) {
@@ -38,7 +45,7 @@ func (s *service) ShortenURL(originURL string) (string, error) {
 		return "", err
 	}
 
-	return u.ShortenURL, nil
+	return addPrefix(u.ShortenURL), nil
 }
 
 func NewService(urls url.URLRepository) Service {

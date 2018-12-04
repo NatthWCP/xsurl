@@ -1,6 +1,7 @@
 package server
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"net/http"
@@ -11,9 +12,6 @@ import (
 
 	"xsurl/api/shortening"
 	"xsurl/api/shortenurl"
-
-	"bytes"
-	"io/ioutil"
 )
 
 type Server struct {
@@ -41,19 +39,6 @@ func New(ss shortening.Service, logger kitlog.Logger) *Server {
 	})
 
 	r.Method("GET", "/metrics", promhttp.Handler())
-
-	r.Post("/shortening_test", func(w http.ResponseWriter, r *http.Request) {
-		body, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			http.Error(w, "can't read body", http.StatusBadRequest)
-			return
-		}
-
-		// Work / inspect body. You may even modify it!
-
-		// And now set a new body, which will simulate the same data we read:
-		r.Body = ioutil.NopCloser(bytes.NewBuffer(body))
-	})
 
 	s.router = r
 

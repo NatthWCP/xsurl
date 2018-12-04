@@ -1,11 +1,11 @@
-POST http://localhost:8080/v0/shortening HTTP/1.1
+POST http://localhost:1234/v0/shortening HTTP/1.1
 content-type: application/json
 
 {
-    "originURL":"http://blog.gainlo.co/index.php/2016/03/08/thistestisusedforurlshortener"
+    "originURL":"http://blog.gainlo.co/index.php/2016/03/08/thistestisusedssforurlshortener"
 }
 
-#BASE64
-"shortenurl": "C4eyk17Z6FIsgYi9wQpTkg=="
-"shortenurl": "ujvd8vETVKC5K5vEch0MEA=="
-"shortenurl": "8yqo65xSp6EdWFkseEzu4Q=="
+curl -H 'Content-Type: application/json' -d '{"originURL":"http://blog.gainlo.co/index.php/2016/03/08/thistestisusedssforurlshortener"}' -X POST http://localhost:8080/v0/shortening 
+
+docker build --no-cache -t api .
+docker run -p 1234:8080 api
